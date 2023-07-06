@@ -19,11 +19,11 @@ contract AuthorizationCloud {
         string memory _uniqueid
     ) public returns (bool) {
         require(res[_address].addr != msg.sender);
-        user[_address].addr = _address;
-        user[_address].name = _name;
-        user[_address].pass= _pass;
-        user[_address].uniqueid = _uniqueid;
-        user[_address].isres = false;
+        res[_address].addr = _address;
+        res[_address].name = _name;
+        res[_address].pass= _pass;
+        res[_address].uniqueid = _uniqueid;
+        res[_address].isres = false;
         return true;
     }
 
