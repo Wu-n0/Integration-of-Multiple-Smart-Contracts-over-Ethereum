@@ -1,50 +1,50 @@
 pragma solidity >=0.4.0 <0.6.0;
 
-contract Auth {
-    struct UserDetail {
+contract AuthorizationCloud {
+    struct ResDetail {
         address addr;
         string name;
-        string password;
+        string pass;
         string uniqueid;
-        bool isUserLoggedIn;
+        bool isres;
     }
 
-    mapping(address => UserDetail) user;
+    mapping(address => ResDetail) res;
 
-    // user registration function
+    // resource registration function
     function register(
         address _address,
         string memory _name,
-        string memory _password,
+        string memory _pass,
         string memory _uniqueid
     ) public returns (bool) {
-        require(user[_address].addr != msg.sender);
+        require(res[_address].addr != msg.sender);
         user[_address].addr = _address;
         user[_address].name = _name;
-        user[_address].password = _password;
+        user[_address].pass= _pass;
         user[_address].uniqueid = _uniqueid;
-        user[_address].isUserLoggedIn = false;
+        user[_address].isres = false;
         return true;
     }
 
-    // user login function
-    function login(address _address, string memory _password)
+    // resource login function
+    function login(address _address, string memory _pass)
         public
         returns (bool)
     {
         if (
-            keccak256(abi.encodePacked(user[_address].password)) ==
-            keccak256(abi.encodePacked(_password))
+            keccak256(abi.encodePacked(res[_address].pass)) ==
+            keccak256(abi.encodePacked(_pass))
         ) {
-            user[_address].isUserLoggedIn = true;
-            return user[_address].isUserLoggedIn;
+            res[_address].isres = true;
+            return res[_address].isres;
         } else {
             return false;
         }
     }
 
-    // check the user logged In or not
-    function checkIsUserLogged(address _address) public view returns (bool) {
-        return (user[_address].isUserLoggedIn);
+    // check the resource logged In or not
+    function IsresLogged(address _address) public view returns (bool) {
+        return (res[_address].isres);
     }
 }
